@@ -36,6 +36,6 @@ class Photoshoot extends Model
         $hasRejected = $this->photoshoot_assets->filter(function ($asset) {
             return in_array($asset->status, [AssetStatus::REJECTED, AssetStatus::PENDING]);
         })->toArray();
-        return count($hasRejected) ?: false;
+        return count($hasRejected) > 0 ? true : false;
     }
 }

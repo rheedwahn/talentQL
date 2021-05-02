@@ -52,6 +52,7 @@ class PhotoshootController extends Controller
             $fileName = $this->handleUpload($request->file('image'));
             $photoshootAsset->thumbnail_link = "/thumbnail/{$fileName}";
             $photoshootAsset->asset_link = "/images/{$fileName}";
+            $photoshootAsset->status = AssetStatus::PENDING;
             $photoshootAsset->save();
             $this->cleanupDirectories($oldAsset, $oldThumbnail);
             return new PhotoshootResource(Photoshoot::findOrFail($photoshoot->id));

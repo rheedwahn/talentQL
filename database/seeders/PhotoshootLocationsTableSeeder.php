@@ -15,7 +15,7 @@ class PhotoshootLocationsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('photoshoot_locations')->truncate();
+        DB::table('photoshoot_locations')->delete();
 
         PhotoshootLocation::factory()->count(5)->create();
     }
