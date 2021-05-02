@@ -11,8 +11,10 @@ use App\Http\Requests\Api\Customer\Photoshoot\ListRequest;
 use App\Http\Requests\Api\Customer\Photoshoot\StoreRequest;
 use App\Http\Requests\Api\Customer\Photoshoot\UpdateRequest;
 use App\Http\Resources\Api\Customer\PhotoshootResource;
+use App\Jobs\NewPhotoshootRequestJob;
 use App\Models\Photoshoot;
 use App\Models\PhotoshootAsset;
+use App\Models\User;
 use App\Services\Photoshoots\Customers\StoreService;
 use App\Services\Photoshoots\Customers\UpdateService;
 
@@ -32,8 +34,9 @@ class PhotoshootController extends Controller
 
     public function store(StoreRequest $request)
     {
+        $photographer = User::where('id', $request->photographer_id)->first();
         $photoshoot = (new StoreService($request->all()))->run();
-        //notify the photographer
+        NewPhotoshootRequestJob::dispatch($photographer);
         return new PhotoshootResource($photoshoot);
     }
 

@@ -20,7 +20,7 @@ Route::get('/selects', 'Select\SelectController@lists');
 
 Route::group(['prefix' => 'customers', 'namespace' => 'Customer'], function () {
     Route::group(['prefix' => 'photoshoots'], function () {
-        Route::get('/', 'PhotoshootController@lists');
+        Route::get('/', 'PhotoshootController@lists')->name('customers.photoshoot.lists');
         Route::post('/', 'PhotoshootController@store');
         Route::patch('/{photoshoot}', 'PhotoshootController@update');
         Route::patch('/{photoshoot}/photoshoot-assets/{photoshoot_asset}', 'PhotoshootController@updateAssetStatus');
